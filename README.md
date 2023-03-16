@@ -1,5 +1,4 @@
 AirBnB clone Project
-AirBnB team project
 
 Description about the project
 First phase of AirBnB clone Project. In this phase the project team developed command line application to manage instances of AirBnB Project such as Places, Cities, Users, Amenities and Reviews that are based on class called BaseModel. The command line application can be used to create, Update, Retrive and count and remove object instance as needed.
