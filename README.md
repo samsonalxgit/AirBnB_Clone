@@ -57,4 +57,4 @@ commands to exit the program if you want to exit the program you should type:
 quit or Ctrl+D or EOF
 
 Author
-Samson Manie <samsonmanie20222gmail.com>
+Samson Manie <samsonmanie2022gmail.com>
