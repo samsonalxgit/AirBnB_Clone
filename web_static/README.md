@@ -1,4 +1,4 @@
-#**A Static Web **
+**A Static Web **
 
 A static website uses server-side rendering to serve pre-built HTML, CSS, and JavaScript files to a web browser, in contrast to traditional dynamic sites that work by rendering the webpage at the time of the request.
 
