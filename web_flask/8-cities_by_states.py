@@ -1,53 +1,28 @@
 #!/usr/bin/python3
-"""
-This is module 8-cities_by_state
-In this module we combine flask with sqlAlchemy for the first time
-Run this script from AirBnB_v2 directory for imports
-"""
+"""script that starts a Flask web application"""
+
+from flask import Flask, render_template
+import operator
 from models import storage
-from models.base_model import Base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from os import getenv
-from models.user import User
-from models.amenity import Amenity
-from models.city import City
-from models.place import Place
-from models.review import Review
 from models.state import State
-from flask import Flask
-from flask import render_template
+from os import getenv
+
 app = Flask(__name__)
 
 
-# @app.route('/cities_by_statess/')
-def cities_by_statess():
-    """List all cities by states"""
-    states = storage.all("State").values()
-    cities = storage.all("City").values()
-    result = [[state, [city for city in cities if city.state_id == state.id]]
-              for state in states]
-    result.sort(key=lambda x: x[0].name)
-    return render_template("8-cities_by_states.html",
-                           Query_name="States", result=result)
-
-
-@app.route('/cities_by_states/')
-def cities_by_states():
-    """List all cities by states"""
-    states = storage.all("State").values()
-    result = []
-    for state in sorted(states, key=lambda x: x.name):
-        result.append([state, state.cities])
-    return render_template("8-cities_by_states.html",
-                           Query_name="States", result=result)
-
-
 @app.teardown_appcontext
-def close_session(exception):
-    """Remove the db session or save file"""
+def teardown(exception=None):
+    """removes the current SQLAlchemy Session"""
     storage.close()
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+@app.route('/cities_by_states', strict_slashes=False)
+def cities_by_states():
+    """returns a dynamic web page for '/cities_by_states' route"""
+    states = sorted(storage.all(State).values(), key=operator.attrgetter
+                    ('name'))
+    return render_template('8-cities_by_states.html', states=states,
+                           storageT=getenv('HBNB_TYPE_STORAGE'))
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
